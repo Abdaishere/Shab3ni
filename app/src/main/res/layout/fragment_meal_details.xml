@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".homepage.menu.ui.MealDetailsFragment"
+    android:paddingBottom="20dp">
+
+    <ImageView
+        android:id="@+id/iv_detailsMealImg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@drawable/meal_placeholder"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_detailsMealName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="20dp"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/iv_detailsMealImg"
+        tools:text="Koshary" />
+
+    <TextView
+        android:id="@+id/tv_detailsMealPrice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="10dp"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/cv_quantity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_detailsMealName"
+        tools:text="120 LE" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="@color/orange"
+        android:gravity="end"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_detailsMealPrice"
+        app:layout_constraintTop_toBottomOf="@id/tv_detailsMealName">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btn_detailsQuantityRemove"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/orange"
+                android:src="@drawable/remove_icon"
+                />
+
+            <TextView
+                android:id="@+id/tv_detailsMealQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:text="1" />
+
+            <ImageButton
+                android:id="@+id/btn_detailsQuantityAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/orange"
+                android:src="@drawable/add_icon"
+                />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <TextView
+        android:id="@+id/tv_detailsMealDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="30dp"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/tv_detailsMealPrice"
+        tools:text="El Koshary da gamed gedan" />
+
+    <TextView
+        android:id="@+id/tv_detailsTotalWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total: "
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:paddingStart="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tv_detailsMealTotalPrice"
+        />
+
+    <TextView
+        android:id="@+id/tv_detailsMealTotalPrice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="120"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        app:layout_constraintStart_toEndOf="@id/tv_detailsTotalWord"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_detailsAddToCart"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_detailsAddToCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add to Cart"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        app:cornerRadius="10dp"
+        android:drawableLeft="@drawable/shopping_cart_icon_outlined"
+        android:backgroundTint="@color/orange"
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="15dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_detailsMealTotalPrice"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
