@@ -24,10 +24,8 @@ public class LoginAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                System.out.println("login");
                 return new LoginTabFragment();
             case 1:
-                System.out.println("signup");
                 return new SignupTabFragment();
             default:
                 return null;
