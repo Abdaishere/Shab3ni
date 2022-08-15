@@ -7,6 +7,7 @@
     tools:context=".accounts.ui.login.LoginActivity">
 
     <ImageView
+        android:contentDescription="@string/food_image"
         android:id="@+id/image_view2"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -53,10 +54,21 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:contentDescription="@string/continue_with_google"
+            android:id="@+id/fab_google"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_pager" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
+        android:contentDescription="@string/app_name"
         android:id="@+id/imageView"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -69,14 +81,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to Shab3ni"
+        android:text="@string/welcome_to_shab3ni"
         android:textColor="@color/white"
+        android:textSize="16sp"
         android:textStyle="bold"
-        android:textSize="16dp"
-        app:layout_constraintVertical_bias=".2"
         app:layout_constraintBottom_toTopOf="@id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias=".2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
