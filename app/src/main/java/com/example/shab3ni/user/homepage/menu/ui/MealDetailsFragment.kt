@@ -10,9 +10,10 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.shab3ni.R
 import com.example.shab3ni.user.homepage.menu.data.Meal
+import com.google.android.material.tabs.TabLayout
 
 
-class MealDetailsFragment : Fragment(R.layout.fragment_meal_details){
+class MealDetailsFragment : Fragment(R.layout.fragment_meal_details) {
 
     private var mealImg: ImageView? = null
     private var mealName: TextView? = null
@@ -54,13 +55,17 @@ class MealDetailsFragment : Fragment(R.layout.fragment_meal_details){
 
         incrementQuantity?.setOnClickListener {
             mealQuantity?.text = (mealQuantity?.text.toString().toInt() + 1).toString()
-            mealTotalPrice?.text = (mealQuantity?.text.toString().toInt() * mealPrice?.text.toString().toInt()).toString()
+            mealTotalPrice?.text =
+                (mealQuantity?.text.toString().toInt() * mealPrice?.text.toString()
+                    .toInt()).toString()
         }
 
         decrementQuantity?.setOnClickListener {
-            if(mealQuantity?.text.toString().toInt() > 1){
+            if (mealQuantity?.text.toString().toInt() > 1) {
                 mealQuantity?.text = (mealQuantity?.text.toString().toInt() - 1).toString()
-                mealTotalPrice?.text = (mealQuantity?.text.toString().toInt() * mealPrice?.text.toString().toInt()).toString()
+                mealTotalPrice?.text =
+                    (mealQuantity?.text.toString().toInt() * mealPrice?.text.toString()
+                        .toInt()).toString()
             }
         }
 

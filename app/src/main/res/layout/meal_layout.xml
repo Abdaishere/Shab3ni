@@ -10,9 +10,10 @@
         android:id="@+id/cv_postCardView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardCornerRadius="25dp"
-        app:cardElevation="10dp"
-        app:cardMaxElevation="12dp"
+        android:layout_margin="10dp"
+        android:background="@color/white"
+        app:cardCornerRadius="14dp"
+        app:cardElevation="4dp"
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true">
 
@@ -20,36 +21,35 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="20dp"
-            >
+            android:padding="12dp">
 
             <ImageView
                 android:id="@+id/iv_mealImg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/meal_img"
+                android:layout_marginBottom="5dp"
                 android:adjustViewBounds="true"
-                android:layout_marginBottom="5dp"/>
+                android:src="@drawable/meal_img" />
 
             <TextView
                 android:id="@+id/tv_mealName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="30sp"
-                tools:text="Koshary"
+                android:layout_marginBottom="5dp"
                 android:gravity="center"
-                android:layout_marginBottom="5dp"/>
+                android:textSize="18sp"
+                tools:text="Loading..." />
 
             <TextView
                 android:id="@+id/tv_mealPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                tools:text="120 LE"
+                android:layout_marginBottom="5dp"
                 android:gravity="center"
-                android:layout_marginBottom="5dp"/>
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:text="000 LE" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

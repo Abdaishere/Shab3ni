@@ -12,10 +12,12 @@ import com.bumptech.glide.Glide
 import com.example.shab3ni.R
 import com.example.shab3ni.user.homepage.menu.data.Meal
 
-class MealAdapter(var meals: List<Meal>?, val onMealListener: OnMealListener) : RecyclerView.Adapter<MealAdapter.MealViewHolder>(), Parcelable {
+class MealAdapter(var meals: List<Meal>?, val onMealListener: OnMealListener) :
+    RecyclerView.Adapter<MealAdapter.MealViewHolder>(), Parcelable {
 
 
-    class MealViewHolder(view: View, onMealListener: OnMealListener) : RecyclerView.ViewHolder(view), View.OnClickListener {
+    class MealViewHolder(view: View, onMealListener: OnMealListener) :
+        RecyclerView.ViewHolder(view), View.OnClickListener {
         val tvMealName: TextView
         val tvMealPrice: TextView
         val ivMealImg: ImageView
@@ -35,7 +37,7 @@ class MealAdapter(var meals: List<Meal>?, val onMealListener: OnMealListener) : 
         }
     }
 
-    interface OnMealListener{
+    interface OnMealListener {
         fun onMealClicked(position: Int)
     }
 

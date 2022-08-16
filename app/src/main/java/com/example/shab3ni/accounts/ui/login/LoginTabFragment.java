@@ -47,4 +47,6 @@ public class LoginTabFragment extends Fragment {
         Login.animate().translationX(0).alpha(1).setDuration(Duration).setStartDelay(700).start();
 
     }
+
+
 }

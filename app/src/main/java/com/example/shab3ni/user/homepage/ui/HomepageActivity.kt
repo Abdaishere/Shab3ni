@@ -1,47 +1,64 @@
 package com.example.shab3ni.user.homepage.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.ImageButton
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.example.shab3ni.R
+import com.example.shab3ni.accounts.ui.login.LoginActivity
 import com.example.shab3ni.user.homepage.menu.ui.MenuFragment
+import com.example.shab3ni.user.homepage.userProfile.data.CurrentUser
 import com.example.shab3ni.user.homepage.userProfile.ui.UserProfileFragment
+import com.google.android.material.tabs.TabLayout
 
 
-class HomepageFragment : Fragment(R.layout.fragment_homepage){
+class HomepageActivity : AppCompatActivity() {
 
     var btnMenu: ImageButton? = null
     var btnUserProfile: ImageButton? = null
     var btnShoppingCart: ImageButton? = null
+    var tabLayout: TabLayout? = null
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         btnMenu = view.findViewById(R.id.btn_menu)
         btnUserProfile = view.findViewById(R.id.btn_userProfile)
         btnShoppingCart = view.findViewById(R.id.btn_shoppingCart)
+        tabLayout = view.findViewById(R.id.tab_layout)
+
+        tabLayout.addTab(tabLayout.newTab().setText("Login"))
+        tabLayout.addTab(tabLayout.newTab().setText("Signup"))
 
         btnMenu?.setImageResource(R.drawable.menu_icon_clicked)
         openMenuFragment()
 
-        btnMenu?.setOnClickListener{
+        btnMenu?.setOnClickListener {
             btnMenu?.setImageResource(R.drawable.menu_icon_clicked)
 
             btnShoppingCart?.setImageResource(R.drawable.shopping_cart_icon)
             btnUserProfile?.setImageResource(R.drawable.user_icon)
             openMenuFragment()
         }
-        btnUserProfile?.setOnClickListener{
-            btnUserProfile?.setImageResource(R.drawable.user_icon_clicked)
+        btnUserProfile?.setOnClickListener {
 
-            btnMenu?.setImageResource(R.drawable.menu_icon)
-            btnShoppingCart?.setImageResource(R.drawable.shopping_cart_icon)
-            openUserProfileFragment()
+            if (!CurrentUser.getToken().isEmpty()) {
+                btnUserProfile?.setImageResource(R.drawable.user_icon_clicked)
+
+                btnMenu?.setImageResource(R.drawable.menu_icon)
+                btnShoppingCart?.setImageResource(R.drawable.shopping_cart_icon)
+                openUserProfileFragment()
+            } else {
+                val intent = Intent(activity, LoginActivity::class.java)
+                startActivity(intent)
+
+            }
         }
-        btnShoppingCart?.setOnClickListener{
+        btnShoppingCart?.setOnClickListener {
 //            btnShoppingCart?.setImageResource(R.drawable.shopping_cart_icon_clicked)
 //
 //            btnMenu?.setImageResource(R.drawable.menu_icon)
@@ -51,14 +68,14 @@ class HomepageFragment : Fragment(R.layout.fragment_homepage){
         }
     }
 
-    fun openMenuFragment(){
+    fun openMenuFragment() {
         childFragmentManager.commit {
             setReorderingAllowed(true)
             replace<MenuFragment>(R.id.homepage_fragment_container)
         }
     }
 
-    fun openUserProfileFragment(){
+    fun openUserProfileFragment() {
         childFragmentManager.commit {
             setReorderingAllowed(true)
             replace<UserProfileFragment>(R.id.homepage_fragment_container)
