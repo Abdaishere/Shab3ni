@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.example.shab3ni.R
@@ -15,24 +14,18 @@ import com.example.shab3ni.accounts.ui.login.LoginActivity
 import com.example.shab3ni.user.homepage.menu.ui.MenuFragment
 import com.example.shab3ni.user.homepage.userProfile.data.CurrentUser
 import com.example.shab3ni.user.homepage.userProfile.ui.UserProfileFragment
-import com.google.android.material.tabs.TabLayout
 
 
-class HomepageActivity : AppCompatActivity() {
+class HomepageFragment : Fragment(R.layout.fragment_homepage) {
 
-    var btnMenu: ImageButton? = null
-    var btnUserProfile: ImageButton? = null
-    var btnShoppingCart: ImageButton? = null
-    var tabLayout: TabLayout? = null
+    private var btnMenu: ImageButton? = null
+    private var btnUserProfile: ImageButton? = null
+    private var btnShoppingCart: ImageButton? = null
 
-    fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         btnMenu = view.findViewById(R.id.btn_menu)
         btnUserProfile = view.findViewById(R.id.btn_userProfile)
         btnShoppingCart = view.findViewById(R.id.btn_shoppingCart)
-        tabLayout = view.findViewById(R.id.tab_layout)
-
-        tabLayout.addTab(tabLayout.newTab().setText("Login"))
-        tabLayout.addTab(tabLayout.newTab().setText("Signup"))
 
         btnMenu?.setImageResource(R.drawable.menu_icon_clicked)
         openMenuFragment()
@@ -44,9 +37,9 @@ class HomepageActivity : AppCompatActivity() {
             btnUserProfile?.setImageResource(R.drawable.user_icon)
             openMenuFragment()
         }
-        btnUserProfile?.setOnClickListener {
 
-            if (!CurrentUser.getToken().isEmpty()) {
+        btnUserProfile?.setOnClickListener {
+            if (CurrentUser.getToken().isNotEmpty()) {
                 btnUserProfile?.setImageResource(R.drawable.user_icon_clicked)
 
                 btnMenu?.setImageResource(R.drawable.menu_icon)
@@ -58,6 +51,8 @@ class HomepageActivity : AppCompatActivity() {
 
             }
         }
+
+        //On progress
         btnShoppingCart?.setOnClickListener {
 //            btnShoppingCart?.setImageResource(R.drawable.shopping_cart_icon_clicked)
 //
@@ -68,14 +63,14 @@ class HomepageActivity : AppCompatActivity() {
         }
     }
 
-    fun openMenuFragment() {
+    private fun openMenuFragment() {
         childFragmentManager.commit {
             setReorderingAllowed(true)
             replace<MenuFragment>(R.id.homepage_fragment_container)
         }
     }
 
-    fun openUserProfileFragment() {
+    private fun openUserProfileFragment() {
         childFragmentManager.commit {
             setReorderingAllowed(true)
             replace<UserProfileFragment>(R.id.homepage_fragment_container)

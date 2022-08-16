@@ -4,22 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".user.homepage.menu.ui.MealDetailsFragment"
-    android:paddingBottom="20dp">
+    android:paddingBottom="20dp"
+    tools:context=".user.homepage.menu.ui.MealDetailsFragment">
 
     <ScrollView
         android:id="@+id/detailsScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btn_detailsAddToCart"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/btn_detailsAddToCart">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
 
             <ImageView
@@ -27,7 +27,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
+                android:contentDescription="@string/meal_image"
                 android:src="@drawable/meal_placeholder"
+                android:elevation="10dp"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -37,10 +39,10 @@
                 android:paddingHorizontal="20dp"
                 android:paddingTop="20dp"
                 android:textColor="@color/black"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/iv_detailsMealImg"
-                tools:text="Koshary" />
+                tools:text="@string/loading" />
 
             <TextView
                 android:id="@+id/tv_detailsMealPrice"
@@ -49,29 +51,29 @@
                 android:paddingHorizontal="20dp"
                 android:paddingTop="10dp"
                 android:textColor="@color/black"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@id/cv_quantity"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_detailsMealName"
-                tools:text="120 LE" />
+                tools:text="999 LE" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_quantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
                 android:backgroundTint="@color/orange"
                 android:gravity="end"
                 app:cardCornerRadius="20dp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_detailsMealDesc"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_detailsMealPrice"
                 app:layout_constraintTop_toBottomOf="@id/tv_detailsMealName">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <ImageButton
@@ -80,17 +82,18 @@
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/orange"
                         android:src="@drawable/remove_icon"
-                        />
+                        android:contentDescription="@string/less" />
 
                     <TextView
                         android:id="@+id/tv_detailsMealQuantity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:text="1"
                         android:textColor="@color/white"
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        android:text="1" />
+                        tools:ignore="HardcodedText" />
 
                     <ImageButton
                         android:id="@+id/btn_detailsQuantityAdd"
@@ -98,21 +101,21 @@
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/orange"
                         android:src="@drawable/add_icon"
-                        />
+                        android:contentDescription="@string/more" />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
 
-                <TextView
-                    android:id="@+id/tv_detailsMealDesc"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="20dp"
-                    android:paddingTop="30dp"
-                    android:textSize="20sp"
-                    app:layout_constraintTop_toBottomOf="@id/tv_detailsMealPrice"
-                    tools:text="El Koshary da gamed gedan" />
+            <TextView
+                android:id="@+id/tv_detailsMealDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:paddingTop="30dp"
+                android:textSize="15sp"
+                app:layout_constraintTop_toBottomOf="@id/tv_detailsMealPrice"
+                tools:text="@string/loading" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -123,49 +126,46 @@
         android:id="@+id/tv_detailsTotalWord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Total: "
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textSize="25sp"
+        android:layout_marginBottom="10dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="8dp"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
-        android:paddingStart="20dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/total"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/tv_detailsMealTotalPrice"
-        />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tv_detailsMealTotalPrice"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:text="120"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
+        android:layout_marginBottom="10dp"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
-        app:layout_constraintStart_toEndOf="@id/tv_detailsTotalWord"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btn_detailsAddToCart"
-        />
+        app:layout_constraintStart_toEndOf="@id/tv_detailsTotalWord"
+        tools:text="999" />
 
-    <com.google.android.material.button.MaterialButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_detailsAddToCart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add to Cart"
-        android:textStyle="bold"
-        android:textSize="15sp"
-        app:cornerRadius="10dp"
-        android:drawableLeft="@drawable/shopping_cart_icon_outlined"
-        android:backgroundTint="@color/orange"
-        android:paddingVertical="10dp"
-        android:paddingHorizontal="15dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:contentDescription="@string/add_to_cart"
+        android:src="@drawable/shopping_cart_icon_outlined"
+        android:text="@string/add_to_cart"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/tv_detailsMealTotalPrice"
-        app:layout_constraintTop_toBottomOf="@id/detailsScrollView"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/detailsScrollView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

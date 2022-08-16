@@ -1,5 +1,6 @@
 package com.example.shab3ni.user.homepage.menu.ui
 
+import android.annotation.SuppressLint
 import android.os.Parcel
 import android.os.Parcelable
 import android.view.LayoutInflater
@@ -12,16 +13,15 @@ import com.bumptech.glide.Glide
 import com.example.shab3ni.R
 import com.example.shab3ni.user.homepage.menu.data.Meal
 
-class MealAdapter(var meals: List<Meal>?, val onMealListener: OnMealListener) :
+@Suppress("UNUSED_PARAMETER")
+class MealAdapter(var meals: List<Meal>?, private val onMealListener: OnMealListener) :
     RecyclerView.Adapter<MealAdapter.MealViewHolder>(), Parcelable {
-
-
     class MealViewHolder(view: View, onMealListener: OnMealListener) :
         RecyclerView.ViewHolder(view), View.OnClickListener {
         val tvMealName: TextView
         val tvMealPrice: TextView
         val ivMealImg: ImageView
-        val onMealListener: OnMealListener
+        private val onMealListener: OnMealListener
 
         init {
             tvMealName = view.findViewById(R.id.tv_mealName)
@@ -45,8 +45,7 @@ class MealAdapter(var meals: List<Meal>?, val onMealListener: OnMealListener) :
     constructor(parcel: Parcel) : this(
         TODO("meals"),
         TODO("onMealListener")
-    ) {
-    }
+    )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MealViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -55,6 +54,7 @@ class MealAdapter(var meals: List<Meal>?, val onMealListener: OnMealListener) :
         return MealViewHolder(view, onMealListener)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MealViewHolder, position: Int) {
         val meal = meals?.get(position)
         holder.tvMealName.text = meal?.name
@@ -65,6 +65,7 @@ class MealAdapter(var meals: List<Meal>?, val onMealListener: OnMealListener) :
             .load(meal?.image)
             .into(holder.ivMealImg)
     }
+
 
     override fun getItemCount() = meals?.size ?: 0
 

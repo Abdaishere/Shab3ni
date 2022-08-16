@@ -1,16 +1,19 @@
 package com.example.shab3ni.user.homepage.menu.ui
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.shab3ni.R
+import com.example.shab3ni.accounts.ui.login.LoginActivity
 import com.example.shab3ni.user.homepage.menu.data.Meal
-import com.google.android.material.tabs.TabLayout
+import com.example.shab3ni.user.homepage.userProfile.data.CurrentUser
 
 
 class MealDetailsFragment : Fragment(R.layout.fragment_meal_details) {
@@ -21,13 +24,15 @@ class MealDetailsFragment : Fragment(R.layout.fragment_meal_details) {
     private var mealQuantity: TextView? = null
     private var mealDesc: TextView? = null
     private var mealTotalPrice: TextView? = null
-    private var addToCart: Button? = null
+    private var addToCart: com.google.android.material.floatingactionbutton.FloatingActionButton? =
+        null
     private var incrementQuantity: ImageButton? = null
     private var decrementQuantity: ImageButton? = null
 
-    var adapter: MealAdapter? = null
-    var mealPos: Int = 0
+    private var adapter: MealAdapter? = null
+    private var mealPos: Int = 0
     var meal: Meal? = null
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mealImg = view.findViewById(R.id.iv_detailsMealImg)
         mealName = view.findViewById(R.id.tv_detailsMealName)
@@ -54,23 +59,42 @@ class MealDetailsFragment : Fragment(R.layout.fragment_meal_details) {
             .into(mealImg!!)
 
         incrementQuantity?.setOnClickListener {
-            mealQuantity?.text = (mealQuantity?.text.toString().toInt() + 1).toString()
-            mealTotalPrice?.text =
-                (mealQuantity?.text.toString().toInt() * mealPrice?.text.toString()
-                    .toInt()).toString()
+            if (CurrentUser.getToken().isNotEmpty()) {
+                mealQuantity?.text = (mealQuantity?.text.toString().toInt() + 1).toString()
+                mealTotalPrice?.text =
+                    ((mealQuantity?.text.toString().toInt() * mealPrice?.text.toString()
+                        .toFloat()).toString())
+            } else loginException()
         }
 
         decrementQuantity?.setOnClickListener {
-            if (mealQuantity?.text.toString().toInt() > 1) {
-                mealQuantity?.text = (mealQuantity?.text.toString().toInt() - 1).toString()
-                mealTotalPrice?.text =
-                    (mealQuantity?.text.toString().toInt() * mealPrice?.text.toString()
-                        .toInt()).toString()
-            }
+
+            if (CurrentUser.getToken().isNotEmpty()) {
+                if (mealQuantity?.text.toString().toInt() > 1) {
+                    mealQuantity?.text = (mealQuantity?.text.toString().toInt() - 1).toString()
+                    mealTotalPrice?.text =
+                        ((mealQuantity?.text.toString().toInt() * mealPrice?.text.toString()
+                            .toFloat()).toString())
+                }
+            } else loginException()
         }
 
         addToCart?.setOnClickListener {
+            if (CurrentUser.getToken().isNotEmpty()) {
+
+            } else
+                loginException()
 
         }
+    }
+
+    private fun loginException() {
+        Toast.makeText(
+            this.context, "Please login to continue",
+            Toast.LENGTH_SHORT
+        ).show()
+        val intent = Intent(activity, LoginActivity::class.java)
+        startActivity(intent)
+
     }
 }

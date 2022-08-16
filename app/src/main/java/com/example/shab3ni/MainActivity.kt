@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
-import com.example.shab3ni.user.homepage.ui.HomepageActivity
+import com.example.shab3ni.user.homepage.ui.HomepageFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     private fun openHomePage() {
         supportFragmentManager.commit {
             setReorderingAllowed(true)
-            add<HomepageActivity>(R.id.main_fragment_container)
+            add<HomepageFragment>(R.id.main_fragment_container)
         }
     }
 
