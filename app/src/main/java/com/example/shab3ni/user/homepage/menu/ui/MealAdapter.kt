@@ -1,4 +1,4 @@
-package com.example.shab3ni.homepage.menu.ui
+package com.example.shab3ni.user.homepage.menu.ui
 
 import android.os.Parcel
 import android.os.Parcelable
@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.shab3ni.R
-import com.example.shab3ni.homepage.menu.data.Meal
+import com.example.shab3ni.user.homepage.menu.data.Meal
 
 class MealAdapter(var meals: List<Meal>?, val onMealListener: OnMealListener) : RecyclerView.Adapter<MealAdapter.MealViewHolder>(), Parcelable {
 
@@ -60,7 +60,7 @@ class MealAdapter(var meals: List<Meal>?, val onMealListener: OnMealListener) : 
 
         Glide
             .with(holder.itemView)
-            .load(meal?.urlToImg)
+            .load(meal?.image)
             .into(holder.ivMealImg)
     }
 

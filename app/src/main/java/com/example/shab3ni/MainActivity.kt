@@ -4,7 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
-import com.example.shab3ni.homepage.ui.HomepageFragment
+import com.example.shab3ni.admin.ui.AdminFragment
+import com.example.shab3ni.user.homepage.ui.HomepageFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

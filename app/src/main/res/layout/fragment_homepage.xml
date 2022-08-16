@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".homepage.ui.HomepageFragment">
+    tools:context=".user.homepage.ui.HomepageFragment">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/homepage_fragment_container"

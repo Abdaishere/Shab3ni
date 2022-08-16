@@ -1,4 +1,4 @@
-package com.example.shab3ni.homepage.menu.data
+package com.example.shab3ni.user.homepage.menu.data
 
 import com.google.gson.annotations.SerializedName
 

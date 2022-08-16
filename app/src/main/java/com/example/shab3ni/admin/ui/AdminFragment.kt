@@ -1,4 +1,4 @@
-package com.example.shab3ni.homepage.menu.ui
+package com.example.shab3ni.admin.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,13 +10,15 @@ import android.widget.TextView
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shab3ni.R
-import com.example.shab3ni.homepage.menu.data.Meal
+import com.example.shab3ni.user.homepage.menu.data.Meal
+import com.example.shab3ni.user.homepage.menu.ui.MealAdapter
+import com.example.shab3ni.user.homepage.menu.ui.MealDetailsFragment
 import com.maximeroussy.invitrode.WordGenerator
 
-class MenuFragment : Fragment(R.layout.fragment_menu), MealAdapter.OnMealListener {
+
+class AdminFragment : Fragment(R.layout.fragment_admin), MealAdapter.OnMealListener {
 
     private var mealImg: ImageView? = null
     private var mealName: TextView? = null
@@ -28,7 +30,7 @@ class MenuFragment : Fragment(R.layout.fragment_menu), MealAdapter.OnMealListene
         mealName = view.findViewById(R.id.tv_mealName)
         mealPrice = view.findViewById(R.id.tv_mealPrice)
 
-        val rvMeals: RecyclerView = view.findViewById(R.id.rv_menu)
+        val rvMeals: RecyclerView = view.findViewById(R.id.rv_adminMealsList)
         val layoutManager = GridLayoutManager(this.context, 2)
         adapter = MealAdapter(getMeals(), this)
         rvMeals.adapter = adapter
@@ -41,7 +43,7 @@ class MenuFragment : Fragment(R.layout.fragment_menu), MealAdapter.OnMealListene
         val generator = WordGenerator();
 
         val meals = List<Meal>(100){
-            val randPrice = (50..300).random()
+            val randPrice = (50..300).random().toDouble()
             val randImgSize = (100..200).random()
             val mealName = generator.newWord((5..10).random())
 
@@ -51,7 +53,7 @@ class MenuFragment : Fragment(R.layout.fragment_menu), MealAdapter.OnMealListene
 
             val imgUrl = "https://picsum.photos/$randImgSize"
 
-            Meal(name = mealName, description= mealDesc, price = randPrice, urlToImg = imgUrl)
+            Meal(name = mealName, description= mealDesc, price = randPrice, image = imgUrl)
         }
 
         return meals
@@ -62,9 +64,9 @@ class MenuFragment : Fragment(R.layout.fragment_menu), MealAdapter.OnMealListene
         bundle.putParcelable("adapter", adapter)
         bundle.putInt("meal position", position)
 
-        parentFragment?.parentFragmentManager?.commit {
+        parentFragmentManager.commit {
             setReorderingAllowed(true)
-            replace<MealDetailsFragment>(R.id.main_fragment_container, args = bundle)
+            replace<AdminMealDetailsFragment>(R.id.main_fragment_container, args = bundle)
             addToBackStack(null)
         }
     }

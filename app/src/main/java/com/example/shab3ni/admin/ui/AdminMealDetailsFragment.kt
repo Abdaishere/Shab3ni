@@ -1,4 +1,4 @@
-package com.example.shab3ni.homepage.menu.ui
+package com.example.shab3ni.admin.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,23 +9,20 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.commit
 import com.bumptech.glide.Glide
 import com.example.shab3ni.R
-import com.example.shab3ni.homepage.menu.data.Meal
-import com.google.android.material.button.MaterialButton
+import com.example.shab3ni.user.homepage.menu.data.Meal
+import com.example.shab3ni.user.homepage.menu.ui.MealAdapter
 
-
-class MealDetailsFragment : Fragment(R.layout.fragment_meal_details){
+class AdminMealDetailsFragment : Fragment(R.layout.fragment_admin_meal_details) {
 
     private var mealImg: ImageView? = null
     private var mealName: TextView? = null
     private var mealPrice: TextView? = null
     private var mealQuantity: TextView? = null
     private var mealDesc: TextView? = null
-    private var mealTotalPrice: TextView? = null
-    private var addToCart: Button? = null
-    private var incrementQuantity: ImageButton? = null
-    private var decrementQuantity: ImageButton? = null
+    private var btnDeleteMeal: Button? = null
 
     var adapter: MealAdapter? = null
     var mealPos: Int = 0
@@ -36,10 +33,7 @@ class MealDetailsFragment : Fragment(R.layout.fragment_meal_details){
         mealDesc = view.findViewById(R.id.tv_detailsMealDesc)
         mealPrice = view.findViewById(R.id.tv_detailsMealPrice)
         mealQuantity = view.findViewById(R.id.tv_detailsMealQuantity)
-        mealTotalPrice = view.findViewById(R.id.tv_detailsMealTotalPrice)
-        addToCart = view.findViewById(R.id.btn_detailsAddToCart)
-        incrementQuantity = view.findViewById(R.id.btn_detailsQuantityAdd)
-        decrementQuantity = view.findViewById(R.id.btn_detailsQuantityRemove)
+        btnDeleteMeal = view.findViewById(R.id.btn_adminDetailsDelete)
 
         mealPos = requireArguments().getInt("meal position")
         adapter = requireArguments().getParcelable("adapter")
@@ -48,27 +42,17 @@ class MealDetailsFragment : Fragment(R.layout.fragment_meal_details){
         mealName?.text = meal?.name
         mealPrice?.text = meal?.price.toString()
         mealDesc?.text = meal?.description
-        mealTotalPrice?.text = meal?.price.toString()
         Glide
             .with(view)
-            .load(meal?.urlToImg)
+            .load(meal?.image)
             .placeholder(R.drawable.meal_img)
             .into(mealImg!!)
 
-        incrementQuantity?.setOnClickListener {
-            mealQuantity?.text = (mealQuantity?.text.toString().toInt() + 1).toString()
-            mealTotalPrice?.text = (mealQuantity?.text.toString().toInt() * mealPrice?.text.toString().toInt()).toString()
-        }
 
-        decrementQuantity?.setOnClickListener {
-            if(mealQuantity?.text.toString().toInt() > 1){
-                mealQuantity?.text = (mealQuantity?.text.toString().toInt() - 1).toString()
-                mealTotalPrice?.text = (mealQuantity?.text.toString().toInt() * mealPrice?.text.toString().toInt()).toString()
-            }
-        }
+        btnDeleteMeal?.setOnClickListener {
+            //TODO: delete the meal from database
 
-        addToCart?.setOnClickListener {
-
+            parentFragmentManager.popBackStack() // return to admin screen
         }
     }
 }
