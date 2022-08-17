@@ -11,11 +11,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.shab3ni.R
-import com.example.shab3ni.user.homepage.menu.data.Meal
+import com.example.shab3ni.user.homepage.menu.data.Product
 
-@Suppress("UNUSED_PARAMETER")
-class MealAdapter(var meals: List<Meal>?, private val onMealListener: OnMealListener) :
-    RecyclerView.Adapter<MealAdapter.MealViewHolder>(), Parcelable {
+class ProductAdapter(var products: List<Product>?, private val onMealListener: OnMealListener) :
+    RecyclerView.Adapter<ProductAdapter.MealViewHolder>(), Parcelable {
     class MealViewHolder(view: View, onMealListener: OnMealListener) :
         RecyclerView.ViewHolder(view), View.OnClickListener {
         val tvMealName: TextView
@@ -29,7 +28,26 @@ class MealAdapter(var meals: List<Meal>?, private val onMealListener: OnMealList
             ivMealImg = view.findViewById(R.id.iv_mealImg)
             this.onMealListener = onMealListener
 
+            animation()
+
             itemView.setOnClickListener(this)
+        }
+
+        private fun animation() {
+            tvMealName.alpha = 0F
+            tvMealName.animate().alpha(1F).setDuration(200L)
+                .setStartDelay(50)
+                .start()
+
+            tvMealPrice.alpha = 0F
+            tvMealPrice.animate().alpha(1F).setDuration(200L)
+                .setStartDelay(50)
+                .start()
+
+            ivMealImg.alpha = 0F
+            ivMealImg.animate().alpha(1F).setDuration(400L)
+                .setStartDelay(50)
+                .start()
         }
 
         override fun onClick(p0: View?) {
@@ -56,18 +74,18 @@ class MealAdapter(var meals: List<Meal>?, private val onMealListener: OnMealList
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MealViewHolder, position: Int) {
-        val meal = meals?.get(position)
+        val meal = products?.get(position)
         holder.tvMealName.text = meal?.name
         holder.tvMealPrice.text = "${meal?.price} LE"
 
         Glide
             .with(holder.itemView)
-            .load(meal?.image)
+            .load(meal?.imageurl)
             .into(holder.ivMealImg)
     }
 
 
-    override fun getItemCount() = meals?.size ?: 0
+    override fun getItemCount() = products?.size ?: 0
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
 
@@ -77,12 +95,12 @@ class MealAdapter(var meals: List<Meal>?, private val onMealListener: OnMealList
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<MealAdapter> {
-        override fun createFromParcel(parcel: Parcel): MealAdapter {
-            return MealAdapter(parcel)
+    companion object CREATOR : Parcelable.Creator<ProductAdapter> {
+        override fun createFromParcel(parcel: Parcel): ProductAdapter {
+            return ProductAdapter(parcel)
         }
 
-        override fun newArray(size: Int): Array<MealAdapter?> {
+        override fun newArray(size: Int): Array<ProductAdapter?> {
             return arrayOfNulls(size)
         }
     }

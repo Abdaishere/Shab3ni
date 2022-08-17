@@ -7,8 +7,8 @@
 
             <solid android:color="#d8d8d8" />
             <corners
-                android:bottomLeftRadius="14dp"
-                android:bottomRightRadius="14dp" />
+                android:bottomLeftRadius="5dp"
+                android:bottomRightRadius="5dp" />
 
         </shape>
     </item>
@@ -20,8 +20,8 @@
 
             <solid android:color="@color/orange" />
             <corners
-                android:bottomLeftRadius="14dp"
-                android:bottomRightRadius="14dp" />
+                android:bottomLeftRadius="5dp"
+                android:bottomRightRadius="5dp" />
 
 
         </shape>

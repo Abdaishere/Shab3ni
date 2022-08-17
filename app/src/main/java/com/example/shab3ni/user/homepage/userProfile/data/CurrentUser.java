@@ -1,33 +1,28 @@
 package com.example.shab3ni.user.homepage.userProfile.data;
 
-import android.content.Context;
-import android.content.Intent;
-
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.shab3ni.accounts.ui.login.LoginActivity;
 
 public class CurrentUser extends AppCompatActivity {
 
-    private static User currentUser = new User();
-
-    private static String token = "";
-
-    public static User getCurrentUser() {
-        return currentUser;
-    }
+    private static User currentUser;
 
     public static void setCurrentUser(User currentUser) {
         CurrentUser.currentUser = currentUser;
     }
 
-    public static String getToken() {
-        return token;
+    public static String getFirstName() {
+        return currentUser.getFirstname();
     }
 
-    public static void setToken(String token) {
-        CurrentUser.token = token;
+    public static String getLastName() {
+        return currentUser.getLastname();
     }
 
+    public static String getEmail() {
+        return currentUser.getEmail();
+    }
 
+    public static boolean isLoggedIn() {
+        return currentUser != null;
+    }
 }

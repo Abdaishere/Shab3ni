@@ -4,72 +4,82 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.add
 import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shab3ni.R
-import com.example.shab3ni.user.homepage.menu.data.Meal
-import com.example.shab3ni.user.homepage.menu.ui.MealAdapter
+import com.example.shab3ni.user.homepage.menu.data.Category
+import com.example.shab3ni.user.homepage.menu.data.CategoryModel
+import com.example.shab3ni.user.homepage.menu.data.Product
 import com.example.shab3ni.user.homepage.menu.ui.MealDetailsFragment
-import com.maximeroussy.invitrode.WordGenerator
+import com.example.shab3ni.user.homepage.menu.ui.ProductAdapter
 
-class CategoryRecyclerViewFragment(category_Id: Int) : Fragment(R.layout.fragment_meal_view),
-    MealAdapter.OnMealListener {
 
-    private var catId: Int
-
-    init {
-        catId = category_Id
-    }
+class CategoryRecyclerViewFragment(private val categoryModel: CategoryModel) :
+    Fragment(R.layout.fragment_meal_view),
+    ProductAdapter.OnMealListener {
 
     private var mealImg: ImageView? = null
     private var mealName: TextView? = null
     private var mealPrice: TextView? = null
-    private var adapter: MealAdapter? = null
+    private var adapter: ProductAdapter? = null
+    private var rvMeals: RecyclerView? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mealImg = view.findViewById(R.id.iv_mealImg)
         mealName = view.findViewById(R.id.tv_mealName)
         mealPrice = view.findViewById(R.id.tv_mealPrice)
+        rvMeals = view.findViewById(R.id.rv_menu)
 
-        val rvMeals: RecyclerView = view.findViewById(R.id.rv_menu)
         val layoutManager = GridLayoutManager(this.context, 2)
-        adapter = MealAdapter(getMeals(), this)
-        rvMeals.adapter = adapter
-        rvMeals.layoutManager = layoutManager
 
+        adapter = ProductAdapter(null, this)
+        getProducts()
 
+        rvMeals?.adapter = adapter
+        rvMeals?.layoutManager = layoutManager
+
+        animation()
     }
 
+    private fun dummyProducts(): ArrayList<Product> {
 
-    private fun getMeals(): List<Meal> {
-        val generator = WordGenerator()
-
-
-        val meals = List(20) {
-            val randPrice = (50..300).random().toDouble()
+        val products = List(20) {
+            val randPrice = 000F
             val randImgSize = (100..200).random()
-            val mealName = generator.newWord((5..10).random())
+            val mealName = "Null"
 
-            val mealDesc = List((10..15).random()) {
-                generator.newWord((3..7).random())
-            }.joinToString(" ")
+            val mealDesc = "Please retry Again Later"
 
             val imgUrl = "https://picsum.photos/$randImgSize"
 
-            Meal(
-                id = this.id,
-                categoryId = catId,
+            Product(
+                id = 0,
+                category = Category(categoryModel.id, categoryModel.name),
                 name = mealName,
                 description = mealDesc,
                 price = randPrice,
-                image = imgUrl
+                imageurl = imgUrl
             )
         }
 
-        return meals
+        val output: ArrayList<Product> = arrayListOf()
+        products.forEach { output.add(it) }
+        return output
+    }
+
+    private fun getProducts() {
+        var products = categoryModel.products
+
+        if (products.isEmpty()) {
+            products = dummyProducts()
+            Toast.makeText(this.context, "Error: please try again later", Toast.LENGTH_SHORT)
+                .show()
+        }
+        adapter?.products = products
     }
 
     override fun onMealClicked(position: Int) {
@@ -80,9 +90,16 @@ class CategoryRecyclerViewFragment(category_Id: Int) : Fragment(R.layout.fragmen
 
         parentFragmentManager.commit {
             setReorderingAllowed(true)
-            replace<MealDetailsFragment>(R.id.main_fragment_container, args = bundle)
+            add<MealDetailsFragment>(R.id.main_fragment_container, args = bundle)
             addToBackStack(null)
         }
+    }
+
+    private fun animation() {
+        rvMeals?.alpha = 0F
+        rvMeals?.animate()?.alpha(1F)?.setDuration(400L)
+            ?.setStartDelay(50)
+            ?.start()
     }
 }
 

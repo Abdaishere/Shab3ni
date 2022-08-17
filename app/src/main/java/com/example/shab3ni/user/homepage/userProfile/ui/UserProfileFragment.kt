@@ -1,6 +1,5 @@
 package com.example.shab3ni.user.homepage.userProfile.ui
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -20,8 +19,8 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
 
 
         // get current user from login
-        // TODO tvFirstName?.text = "${currentUser.firstName}"
-        // TODO tvLastName?.text = "${currentUser.lastName}"
-        // TODO tvEmail?.text = "${currentUser.email}"
+        tvFirstName?.text = CurrentUser.getFirstName()
+        tvLastName?.text = CurrentUser.getLastName()
+        tvEmail?.text = CurrentUser.getEmail()
     }
 }

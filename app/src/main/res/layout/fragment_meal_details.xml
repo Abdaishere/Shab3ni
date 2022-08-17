@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="20dp"
+    android:background="@color/white"
     tools:context=".user.homepage.menu.ui.MealDetailsFragment">
 
     <ScrollView
@@ -21,15 +21,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
             <ImageView
                 android:id="@+id/iv_detailsMealImg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/meal_image"
-                android:src="@drawable/meal_placeholder"
                 android:elevation="10dp"
+                android:src="@drawable/meal_placeholder"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -81,8 +82,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/orange"
-                        android:src="@drawable/remove_icon"
-                        android:contentDescription="@string/less" />
+                        android:contentDescription="@string/less"
+                        android:src="@drawable/remove_icon" />
 
                     <TextView
                         android:id="@+id/tv_detailsMealQuantity"
@@ -100,8 +101,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/orange"
-                        android:src="@drawable/add_icon"
-                        android:contentDescription="@string/more" />
+                        android:contentDescription="@string/more"
+                        android:src="@drawable/add_icon" />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -126,10 +127,9 @@
         android:id="@+id/tv_detailsTotalWord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:paddingStart="20dp"
-        android:paddingEnd="8dp"
         android:paddingTop="15dp"
+        android:paddingEnd="8dp"
         android:paddingBottom="15dp"
         android:text="@string/total"
         android:textColor="@color/black"
@@ -137,13 +137,13 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/tv_detailsMealTotalPrice"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailsScrollView" />
 
     <TextView
         android:id="@+id/tv_detailsMealTotalPrice"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
         android:textColor="@color/black"
@@ -152,14 +152,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btn_detailsAddToCart"
         app:layout_constraintStart_toEndOf="@id/tv_detailsTotalWord"
+        app:layout_constraintTop_toBottomOf="@+id/detailsScrollView"
         tools:text="999" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_detailsAddToCart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
         android:contentDescription="@string/add_to_cart"
         android:src="@drawable/shopping_cart_icon_outlined"
         android:text="@string/add_to_cart"

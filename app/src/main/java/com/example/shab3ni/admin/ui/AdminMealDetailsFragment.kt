@@ -2,18 +2,14 @@ package com.example.shab3ni.admin.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.fragment.app.commit
 import com.bumptech.glide.Glide
 import com.example.shab3ni.R
-import com.example.shab3ni.user.homepage.menu.data.Meal
-import com.example.shab3ni.user.homepage.menu.ui.MealAdapter
+import com.example.shab3ni.user.homepage.menu.data.Product
+import com.example.shab3ni.user.homepage.menu.ui.ProductAdapter
 
 class AdminMealDetailsFragment : Fragment(R.layout.fragment_admin_meal_details) {
 
@@ -24,9 +20,9 @@ class AdminMealDetailsFragment : Fragment(R.layout.fragment_admin_meal_details) 
     private var mealDesc: TextView? = null
     private var btnDeleteMeal: Button? = null
 
-    var adapter: MealAdapter? = null
+    var adapter: ProductAdapter? = null
     var mealPos: Int = 0
-    var meal: Meal? = null
+    var product: Product? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mealImg = view.findViewById(R.id.iv_detailsMealImg)
         mealName = view.findViewById(R.id.tv_detailsMealName)
@@ -37,14 +33,14 @@ class AdminMealDetailsFragment : Fragment(R.layout.fragment_admin_meal_details) 
 
         mealPos = requireArguments().getInt("meal position")
         adapter = requireArguments().getParcelable("adapter")
-        meal = adapter?.meals?.get(mealPos)
+        product = adapter?.products?.get(mealPos)
 
-        mealName?.text = meal?.name
-        mealPrice?.text = meal?.price.toString()
-        mealDesc?.text = meal?.description
+        mealName?.text = product?.name
+        mealPrice?.text = product?.price.toString()
+        mealDesc?.text = product?.description
         Glide
             .with(view)
-            .load(meal?.image)
+            .load(product?.imageurl)
             .placeholder(R.drawable.meal_img)
             .into(mealImg!!)
 

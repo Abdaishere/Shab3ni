@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.shab3ni.R
 import com.example.shab3ni.accounts.ui.login.LoginActivity
-import com.example.shab3ni.user.homepage.menu.data.Meal
+import com.example.shab3ni.user.homepage.menu.data.Product
 import com.example.shab3ni.user.homepage.userProfile.data.CurrentUser
 
 
@@ -29,9 +29,9 @@ class MealDetailsFragment : Fragment(R.layout.fragment_meal_details) {
     private var incrementQuantity: ImageButton? = null
     private var decrementQuantity: ImageButton? = null
 
-    private var adapter: MealAdapter? = null
+    private var adapter: ProductAdapter? = null
     private var mealPos: Int = 0
-    var meal: Meal? = null
+    private var product: Product? = null
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mealImg = view.findViewById(R.id.iv_detailsMealImg)
@@ -46,20 +46,20 @@ class MealDetailsFragment : Fragment(R.layout.fragment_meal_details) {
 
         mealPos = requireArguments().getInt("meal position")
         adapter = requireArguments().getParcelable("adapter")
-        meal = adapter?.meals?.get(mealPos)
+        product = adapter?.products?.get(mealPos)
 
-        mealName?.text = meal?.name
-        mealPrice?.text = meal?.price.toString()
-        mealDesc?.text = meal?.description
-        mealTotalPrice?.text = meal?.price.toString()
+        mealName?.text = product?.name
+        mealPrice?.text = product?.price.toString()
+        mealDesc?.text = "Category: ${product?.category?.name} \n\n${product?.description}"
+        mealTotalPrice?.text = product?.price.toString()
         Glide
             .with(view)
-            .load(meal?.image)
+            .load(product?.imageurl)
             .placeholder(R.drawable.meal_img)
             .into(mealImg!!)
 
         incrementQuantity?.setOnClickListener {
-            if (CurrentUser.getToken().isNotEmpty()) {
+            if (CurrentUser.isLoggedIn()) {
                 mealQuantity?.text = (mealQuantity?.text.toString().toInt() + 1).toString()
                 mealTotalPrice?.text =
                     ((mealQuantity?.text.toString().toInt() * mealPrice?.text.toString()
@@ -69,7 +69,7 @@ class MealDetailsFragment : Fragment(R.layout.fragment_meal_details) {
 
         decrementQuantity?.setOnClickListener {
 
-            if (CurrentUser.getToken().isNotEmpty()) {
+            if (CurrentUser.isLoggedIn()) {
                 if (mealQuantity?.text.toString().toInt() > 1) {
                     mealQuantity?.text = (mealQuantity?.text.toString().toInt() - 1).toString()
                     mealTotalPrice?.text =
@@ -80,7 +80,7 @@ class MealDetailsFragment : Fragment(R.layout.fragment_meal_details) {
         }
 
         addToCart?.setOnClickListener {
-            if (CurrentUser.getToken().isNotEmpty()) {
+            if (CurrentUser.isLoggedIn()) {
 
             } else
                 loginException()

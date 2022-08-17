@@ -3,7 +3,7 @@ package com.example.shab3ni.accounts.data
 import com.google.gson.annotations.SerializedName
 
 
-data class Login (
+data class UserAuth (
 
     @SerializedName("email"    ) var email    : String? = null,
     @SerializedName("password" ) var password : String? = null
