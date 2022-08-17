@@ -11,18 +11,22 @@ public class CurrentUser extends AppCompatActivity {
     }
 
     public static String getFirstName() {
-        return currentUser.getFirstname();
+        return "abda";
+//        return currentUser.getFirstname();
     }
 
     public static String getLastName() {
-        return currentUser.getLastname();
+        return "abda";
+//        return currentUser.getLastname();
     }
 
     public static String getEmail() {
-        return currentUser.getEmail();
+        return "abda";
+//        return currentUser.getEmail();
     }
 
     public static boolean isLoggedIn() {
-        return currentUser != null;
+        return true;
+//        return currentUser != null;
     }
 }

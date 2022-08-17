@@ -3,6 +3,7 @@ package com.example.shab3ni.accounts.api
 import com.example.shab3ni.accounts.data.PasswordModel
 import com.example.shab3ni.accounts.data.UserAuth
 import com.example.shab3ni.accounts.data.UserModel
+import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
@@ -18,15 +19,15 @@ interface AccountsApi {
 
     // saves the password via token
     @POST("savePassword")
-    fun savePassword(@Query("token") token: String, @Body passwordModel: PasswordModel)
+    fun savePassword(@Query("token") token: String, @Body passwordModel: PasswordModel): Call<String>
 
     /// On Progress
     @POST("resetpassword")
-    fun resetPassword(@Body passwordModel: PasswordModel)
+    fun resetPassword(@Body passwordModel: PasswordModel): Call<String>
 
     //
     @POST("changePassword")
-    fun changePassword(@Body passwordModel: PasswordModel)
+    fun changePassword(@Body passwordModel: PasswordModel): Call<String>
 
     // register
     @POST("register")
@@ -34,11 +35,11 @@ interface AccountsApi {
 
     // verify by mail
     @GET("verifyRegistration")
-    fun verifyRegistration(@Query("token") token: String): String
+    fun verifyRegistration(@Query("token") token: String): Call<String>
 
     // resend email
     @GET("resendverifytoken")
-    fun resendVerifyToken(@Query("token") token: String): String
+    fun resendVerifyToken(@Query("token") token: String): Call<String>
 }
 
 var retrofit: Retrofit = Retrofit.Builder()
