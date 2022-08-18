@@ -1,68 +1,122 @@
 package com.example.shab3ni.user.homepage.menu.ui
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
 import com.example.shab3ni.R
-import com.example.shab3ni.user.homepage.menu.data.Meal
-import com.maximeroussy.invitrode.WordGenerator
+import com.example.shab3ni.accounts.ui.login.LoginActivity
+import com.example.shab3ni.user.homepage.editPage.ui.EditPageFragment
+import com.example.shab3ni.user.homepage.menu.api.productsApi
+import com.example.shab3ni.user.homepage.menu.category.categoryTabLayoutAdapter
+import com.example.shab3ni.user.homepage.menu.data.CategoryModel
+import com.example.shab3ni.user.homepage.userProfile.data.CurrentUser
+import com.google.android.material.tabs.TabLayout
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class MenuFragment : Fragment(R.layout.fragment_menu), MealAdapter.OnMealListener {
 
-    private var mealImg: ImageView? = null
-    private var mealName: TextView? = null
-    private var mealPrice: TextView? = null
-    private var adapter: MealAdapter? = null
+class MenuFragment : Fragment(R.layout.fragment_meal) {
+
+    lateinit var viewPager: ViewPager
+    private lateinit var tabLayout: TabLayout
+    private lateinit var adapter: categoryTabLayoutAdapter
+    private lateinit var addMeal: com.google.android.material.floatingactionbutton.FloatingActionButton
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        mealImg = view.findViewById(R.id.iv_mealImg)
-        mealName = view.findViewById(R.id.tv_mealName)
-        mealPrice = view.findViewById(R.id.tv_mealPrice)
 
-        val rvMeals: RecyclerView = view.findViewById(R.id.rv_menu)
-        val layoutManager = GridLayoutManager(this.context, 2)
-        adapter = MealAdapter(getMeals(), this)
-        rvMeals.adapter = adapter
-        rvMeals.layoutManager = layoutManager
+        tabLayout = view.findViewById(R.id.tab_layout2)
+        viewPager = view.findViewById(R.id.view_pager)
 
+        addMeal = view.findViewById(R.id.btn_addMeal)
+        addMeal.setOnClickListener {
+
+            if (CurrentUser.isLoggedIn()) {
+                childFragmentManager.commit {
+                    setReorderingAllowed(true)
+                    replace<EditPageFragment>(R.id.homepage_fragment_container)
+                }
+
+            } else {
+                val intent = Intent(activity, LoginActivity::class.java)
+                startActivity(intent)
+            }
+        }
+
+        getAllCategories()
+        animation()
+    }
+
+    private fun animation() {
+        tabLayout.translationY = -300F
+        tabLayout.alpha = 0F
+
+        tabLayout.animate().translationY(0F).alpha(1F).setDuration(500L).setStartDelay(400)
+            .start()
+
+        addMeal.translationY = 300F
+        addMeal.alpha = 0F
+
+        addMeal.animate().translationY(0F).alpha(1F).setDuration(600L).setStartDelay(700)
+            .start()
 
     }
 
-    fun getMeals(): List<Meal>{
-        val generator = WordGenerator();
 
-        val meals = List<Meal>(100){
-            val randPrice = (50..300).random().toDouble()
-            val randImgSize = (100..200).random()
-            val mealName = generator.newWord((5..10).random())
+    private fun getAllCategories() {
+        val context = this.context
+        val call: Call<ArrayList<CategoryModel>> = productsApi.categoriesAll()
+        call.enqueue(object : Callback<ArrayList<CategoryModel>> {
+            override fun onResponse(
+                call: Call<ArrayList<CategoryModel>>,
+                response: Response<ArrayList<CategoryModel>>
+            ) {
+                if (response.body()?.isEmpty() == true)
+                    Toast.makeText(context, "The list is empty", Toast.LENGTH_SHORT)
+                        .show()
 
-            val mealDesc = List((10..15).random()){
-                generator.newWord((3..7).random())
-            }.joinToString(" ")
+                response.body()?.forEach {
+                    tabLayout.addTab(tabLayout.newTab().setText(it.name))
+                }
 
-            val imgUrl = "https://picsum.photos/$randImgSize"
+                adapter =
+                    categoryTabLayoutAdapter(
+                        activity?.supportFragmentManager,
+                        activity,
+                        tabLayout.tabCount,
+                        response.body()
+                    )
 
-            Meal(name = mealName, description= mealDesc, price = randPrice, image = imgUrl)
-        }
+                tabLayout.tabGravity = TabLayout.GRAVITY_START
 
-        return meals
-    }
+                viewPager.adapter = adapter
 
-    override fun onMealClicked(position: Int) {
-        val bundle = Bundle()
-        bundle.putParcelable("adapter", adapter)
-        bundle.putInt("meal position", position)
+                viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
 
-        parentFragment?.parentFragmentManager?.commit {
-            setReorderingAllowed(true)
-            replace<MealDetailsFragment>(R.id.main_fragment_container, args = bundle)
-            addToBackStack(null)
-        }
+                tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+                    override fun onTabSelected(tab: TabLayout.Tab) {
+                        viewPager.currentItem = tab.position
+                    }
+
+                    override fun onTabUnselected(tab: TabLayout.Tab) {
+
+                    }
+
+                    override fun onTabReselected(tab: TabLayout.Tab) {}
+                })
+            }
+
+            override fun onFailure(call: Call<ArrayList<CategoryModel>>, t: Throwable) {
+                Toast.makeText(context, "Error: Please try again later", Toast.LENGTH_SHORT)
+                    .show()
+                call.cancel()
+            }
+        })
     }
 }

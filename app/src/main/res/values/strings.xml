@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Shab3ni</string>
     <string name="email">Email</string>
+    <string name="email_colon">Email:</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="forget_password">Forget Password</string>
@@ -10,4 +11,27 @@
     <string name="name">Name</string>
     <string name="conform_password">Conform Password</string>
     <string name="sign_up">Sign up</string>
+    <string name="total">Total:</string>
+    <string name="loading">Loading…</string>
+    <string name="userprofile">userProfile</string>
+    <string name="meals">Meals</string>
+    <string name="shopping_cart">Shopping Cart</string>
+    <string name="meal_image">Meal Image</string>
+    <string name="less">Less</string>
+    <string name="more">More</string>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="user_image">User Image</string>
+    <string name="first_name">First Name:</string>
+    <string name="last_name">Last Name:</string>
+    <string name="change_password">Change Password</string>
+    <string name="delete">Delete</string>
+    <string name="addCat">add Category</string>
+    <string name="CatName">Category Name</string>
+    <string name="imageurl">Image Link</string>
+    <string name="disc">Description</string>
+    <string name="Price">Price</string>
+    <string name="catId">C.I.D</string>
+    <string name="addProd">Add Product</string>
+    <string name="prodName">Product Name</string>
+    <string name="add_meal">Add Meal</string>
 </resources>

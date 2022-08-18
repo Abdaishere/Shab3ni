@@ -1,6 +1,8 @@
 package com.example.shab3ni.accounts.ui.login
 
 import android.os.Bundle
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.example.shab3ni.R
@@ -13,6 +15,9 @@ class LoginActivity : AppCompatActivity() {
 
     lateinit var tabLayout: TabLayout
     lateinit var viewPager: ViewPager
+    lateinit var imageView: ImageView
+    lateinit var textView: TextView
+
     private lateinit var fb: FloatingActionButton
     private val Duration = 600L
 
@@ -22,6 +27,8 @@ class LoginActivity : AppCompatActivity() {
 
         tabLayout = findViewById(R.id.tab_layout)
         viewPager = findViewById(R.id.view_pager)
+        imageView = findViewById(R.id.imageView)
+        textView = findViewById(R.id.welcomeText)
         fb = findViewById(R.id.fab_google)
 
         tabLayout.addTab(tabLayout.newTab().setText("Login"))
@@ -53,12 +60,26 @@ class LoginActivity : AppCompatActivity() {
         fb.translationY = 300F
         fb.alpha = 0F
 
-        fb.animate().translationY(0F).alpha(1F).setDuration(Duration).setStartDelay(400).start()
+        fb.animate().translationY(0F).alpha(1F).setDuration(Duration).setStartDelay(300).start()
 
         tabLayout.translationY = 300F
         tabLayout.alpha = 0F
 
         tabLayout.animate().translationY(0F).alpha(1F).setDuration(Duration).setStartDelay(100)
+            .start()
+
+        imageView.scaleX = 1.3F
+        imageView.scaleY = 1.3F
+        imageView.rotation = 250F
+        imageView.alpha = 0F
+
+        imageView.animate().rotation(1F).scaleX(1f).scaleY(1f).alpha(1F).setDuration(700)
+            .setStartDelay(400).start()
+
+        textView.translationY = 300F
+        textView.alpha = 0F
+
+        textView.animate().translationY(0F).alpha(1F).setDuration(Duration).setStartDelay(150)
             .start()
 
     }

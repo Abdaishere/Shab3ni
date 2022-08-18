@@ -4,8 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class Category (
 
-    @SerializedName("id"       ) var id       : Int?                = null,
-    @SerializedName("name"     ) var name     : String?             = null,
-    @SerializedName("products" ) var products : ArrayList<Meal> = arrayListOf()
+    @SerializedName("id"   ) var id   : Long?    = null,
+    @SerializedName("name" ) var name : String? = null
 
 )

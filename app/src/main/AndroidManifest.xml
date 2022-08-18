@@ -16,7 +16,7 @@
         android:theme="@style/Theme.Shab3ni"
         tools:targetApi="31">
         <activity
-            android:name=".accounts.ui.register.RegistrationActivity"
+            android:name=".accounts.ui.register.SignupTabFragment"
             android:exported="false" />
         <activity
             android:name=".accounts.ui.login.LoginActivity"
