@@ -38,7 +38,7 @@ class MenuFragment : Fragment(R.layout.fragment_meal) {
         addMeal.setOnClickListener {
 
             if (CurrentUser.isLoggedIn()) {
-                childFragmentManager.commit {
+                parentFragmentManager.commit {
                     setReorderingAllowed(true)
                     replace<EditPageFragment>(R.id.homepage_fragment_container)
                 }
