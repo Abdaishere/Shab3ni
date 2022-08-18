@@ -1,4 +1,4 @@
-package com.example.shab3ni.admin.data
+package com.example.shab3ni.user.homepage.editPage.data
 
 import com.google.gson.annotations.SerializedName
 

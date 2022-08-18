@@ -13,10 +13,12 @@ import com.bumptech.glide.Glide
 import com.example.shab3ni.R
 import com.example.shab3ni.user.homepage.menu.data.Product
 
-class ProductAdapter(var products: List<Product>?, private val onMealListener: OnMealListener) :
+class ProductAdapter(var products: List<Product>?, private val onMealListener: OnMealListener?) :
     RecyclerView.Adapter<ProductAdapter.MealViewHolder>(), Parcelable {
-    class MealViewHolder(view: View, onMealListener: OnMealListener) :
+
+    inner class MealViewHolder(view: View, onMealListener: OnMealListener) :
         RecyclerView.ViewHolder(view), View.OnClickListener {
+
         val tvMealName: TextView
         val tvMealPrice: TextView
         val ivMealImg: ImageView
@@ -27,10 +29,10 @@ class ProductAdapter(var products: List<Product>?, private val onMealListener: O
             tvMealPrice = view.findViewById(R.id.tv_mealPrice)
             ivMealImg = view.findViewById(R.id.iv_mealImg)
             this.onMealListener = onMealListener
+            itemView.setOnClickListener(this)
 
             animation()
 
-            itemView.setOnClickListener(this)
         }
 
         private fun animation() {
@@ -51,7 +53,10 @@ class ProductAdapter(var products: List<Product>?, private val onMealListener: O
         }
 
         override fun onClick(p0: View?) {
-            onMealListener.onMealClicked(adapterPosition)
+            val position = adapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                onMealListener.onMealClicked(adapterPosition)
+            }
         }
     }
 
@@ -59,17 +64,16 @@ class ProductAdapter(var products: List<Product>?, private val onMealListener: O
         fun onMealClicked(position: Int)
     }
 
-
     constructor(parcel: Parcel) : this(
-        TODO("meals"),
-        TODO("onMealListener")
+        onMealListener = null,
+        products = null
     )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MealViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.meal_layout, parent, false)
 
-        return MealViewHolder(view, onMealListener)
+        return MealViewHolder(view, onMealListener!!)
     }
 
     @SuppressLint("SetTextI18n")
@@ -84,11 +88,10 @@ class ProductAdapter(var products: List<Product>?, private val onMealListener: O
             .into(holder.ivMealImg)
     }
 
-
     override fun getItemCount() = products?.size ?: 0
-
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-
+        parcel.writeString(products.toString())
+        parcel.writeString(onMealListener.toString())
     }
 
     override fun describeContents(): Int {
@@ -104,5 +107,4 @@ class ProductAdapter(var products: List<Product>?, private val onMealListener: O
             return arrayOfNulls(size)
         }
     }
-
 }

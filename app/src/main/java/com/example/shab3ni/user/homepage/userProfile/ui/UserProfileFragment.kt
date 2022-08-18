@@ -23,7 +23,7 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
     private lateinit var tvEmail: TextView
     private lateinit var changePassword: Button
     private lateinit var pass: EditText
-    private lateinit var conf_pass: EditText
+    private lateinit var confPass: EditText
     private lateinit var cvEmail: CardView
     private lateinit var cvFirstName: CardView
     private lateinit var cvLastName: CardView
@@ -35,7 +35,7 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
         tvEmail = view.findViewById(R.id.tv_email)
         changePassword = view.findViewById(R.id.btn_changpass)
         pass = view.findViewById(R.id.password)
-        conf_pass = view.findViewById(R.id.password_conform)
+        confPass = view.findViewById(R.id.password_conform)
 
         cvEmail = view.findViewById(R.id.cv_email)
         cvFirstName = view.findViewById(R.id.cv_firstName)
@@ -47,7 +47,7 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
                 pass.animate().translationX(0f).alpha(1f).setDuration(500)
                     .setStartDelay(800).start()
 
-                conf_pass.animate().translationX(0f).alpha(1f).setDuration(500)
+                confPass.animate().translationX(0f).alpha(1f).setDuration(500)
                     .setStartDelay(1000).start()
 
                 changePassword.animate().translationY(25f).setDuration(500)
@@ -55,7 +55,7 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
                     .start()
             } else {
 
-                if (pass.text.equals(conf_pass.text) && pass.text.isNotEmpty())
+                if (pass.text.equals(confPass.text) && pass.text.isNotEmpty())
                     changePassword()
                 else
                     Toast.makeText(context, "Error: Please try again", Toast.LENGTH_SHORT)
@@ -95,19 +95,20 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
             .start()
 
         pass.translationX = 800f
-        conf_pass.translationX = 800f
+        confPass.translationX = 800f
         pass.alpha = 0f
-        conf_pass.alpha = 0f
+        confPass.alpha = 0f
 
     }
 
+    // TODO fix it lol
     private fun changePassword() {
         val context = this.context
         val call: Call<String> = accountsApi.changePassword(
             PasswordModel(
                 tvEmail.text.toString(),
                 pass.text.toString(),
-                conf_pass.text.toString()
+                confPass.text.toString()
             )
         )
         call.enqueue(object : Callback<String> {
@@ -118,7 +119,7 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
                 pass.animate().translationX(800f).alpha(0f).setDuration(500)
                     .setStartDelay(200).start()
 
-                conf_pass.animate().translationX(800f).alpha(0f).setDuration(500)
+                confPass.animate().translationX(800f).alpha(0f).setDuration(500)
                     .setStartDelay(800).start()
 
                 changePassword.animate().translationY(25f).setDuration(500)
@@ -127,7 +128,7 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
 
                 changePassOpen = false
                 pass.setText("")
-                conf_pass.setText("")
+                confPass.setText("")
             }
 
             override fun onFailure(call: Call<String>, t: Throwable) {

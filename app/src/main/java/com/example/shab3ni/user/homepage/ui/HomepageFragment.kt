@@ -4,13 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
-import android.widget.Toast
-import android.widget.Toast.LENGTH_SHORT
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.example.shab3ni.R
 import com.example.shab3ni.accounts.ui.login.LoginActivity
+import com.example.shab3ni.user.homepage.editPage.ui.EditPageFragment
 import com.example.shab3ni.user.homepage.menu.ui.MenuFragment
 import com.example.shab3ni.user.homepage.userProfile.data.CurrentUser
 import com.example.shab3ni.user.homepage.userProfile.ui.UserProfileFragment
@@ -49,10 +48,9 @@ class HomepageFragment : Fragment(R.layout.fragment_homepage) {
         //On progress
         btnShoppingCart?.setOnClickListener {
             if (CurrentUser.isLoggedIn()) {
-//                btnShoppingCartClicked()
+                btnShoppingCartClicked()
+                openEditPageFragment()
 
-                Toast.makeText(this.context, "Shopping cart isn\'t available yet.", LENGTH_SHORT)
-                    .show()
             } else {
                 val intent = Intent(activity, LoginActivity::class.java)
                 startActivity(intent)
@@ -68,7 +66,7 @@ class HomepageFragment : Fragment(R.layout.fragment_homepage) {
     }
 
     private fun animation() {
-        val duration = 700L
+        val duration = 550L
 
         view?.translationY = 300F
         view?.alpha = 0F
@@ -128,6 +126,13 @@ class HomepageFragment : Fragment(R.layout.fragment_homepage) {
         childFragmentManager.commit {
             setReorderingAllowed(true)
             replace<UserProfileFragment>(R.id.homepage_fragment_container)
+        }
+    }
+
+    private fun openEditPageFragment() {
+        childFragmentManager.commit {
+            setReorderingAllowed(true)
+            replace<EditPageFragment>(R.id.homepage_fragment_container)
         }
     }
 }

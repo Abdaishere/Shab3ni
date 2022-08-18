@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import androidx.viewpager.widget.ViewPager
 import com.example.shab3ni.R
+import com.example.shab3ni.user.homepage.editPage.ui.EditPageFragment
 import com.example.shab3ni.user.homepage.menu.api.productsApi
 import com.example.shab3ni.user.homepage.menu.category.categoryTabLayoutAdapter
 import com.example.shab3ni.user.homepage.menu.data.CategoryModel
@@ -20,12 +23,22 @@ class MenuFragment : Fragment(R.layout.fragment_meal) {
     lateinit var viewPager: ViewPager
     private lateinit var tabLayout: TabLayout
     private lateinit var adapter: categoryTabLayoutAdapter
+    private lateinit var addMeal: com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         tabLayout = view.findViewById(R.id.tab_layout2)
         viewPager = view.findViewById(R.id.view_pager)
+
+        addMeal = view.findViewById(R.id.btn_addMeal)
+        addMeal.setOnClickListener {
+            parentFragmentManager.commit {
+                setReorderingAllowed(true)
+                replace<EditPageFragment>(R.id.homepage_fragment_container)
+            }
+        }
+
         getAllCategories()
         animation()
     }
@@ -36,6 +49,13 @@ class MenuFragment : Fragment(R.layout.fragment_meal) {
 
         tabLayout.animate().translationY(0F).alpha(1F).setDuration(500L).setStartDelay(400)
             .start()
+
+        addMeal.translationY = 300F
+        addMeal.alpha = 0F
+
+        addMeal.animate().translationY(0F).alpha(1F).setDuration(600L).setStartDelay(700)
+            .start()
+
     }
 
 

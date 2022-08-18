@@ -5,8 +5,8 @@ import com.example.shab3ni.user.homepage.menu.data.Product
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 interface ProductsApi {
 
@@ -14,10 +14,10 @@ interface ProductsApi {
     fun productsAll(): Call<ArrayList<Product>>
 
     @GET("getproductbyid/")
-    fun getProductById(ID: Long?): Call<Product>
+    fun getProductById(@Path("productId") ID: Long?): Call<Product>
 
     @GET("getcategorybyid/")
-    fun getCategoryById(ID: Long?): Call<CategoryModel>
+    fun getCategoryById(@Path("categoryId") ID: Long?): Call<CategoryModel>
 
     @GET("categories/all")
     fun categoriesAll(): Call<ArrayList<CategoryModel>>

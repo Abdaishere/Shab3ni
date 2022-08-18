@@ -1,6 +1,5 @@
 package com.example.shab3ni.user.homepage.menu.ui
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -10,10 +9,15 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.example.shab3ni.MainActivity
 import com.example.shab3ni.R
 import com.example.shab3ni.accounts.ui.login.LoginActivity
+import com.example.shab3ni.user.homepage.editPage.api.adminApi
 import com.example.shab3ni.user.homepage.menu.data.Product
 import com.example.shab3ni.user.homepage.userProfile.data.CurrentUser
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class MealDetailsFragment : Fragment(R.layout.fragment_meal_details) {
@@ -24,7 +28,8 @@ class MealDetailsFragment : Fragment(R.layout.fragment_meal_details) {
     private var mealQuantity: TextView? = null
     private var mealDesc: TextView? = null
     private var mealTotalPrice: TextView? = null
-    private var addToCart: com.google.android.material.floatingactionbutton.FloatingActionButton? =
+    private var fadeView: View? = null
+    private var btnDetailsAddToCart: com.google.android.material.floatingactionbutton.FloatingActionButton? =
         null
     private var incrementQuantity: ImageButton? = null
     private var decrementQuantity: ImageButton? = null
@@ -32,7 +37,9 @@ class MealDetailsFragment : Fragment(R.layout.fragment_meal_details) {
     private var adapter: ProductAdapter? = null
     private var mealPos: Int = 0
     private var product: Product? = null
-    @SuppressLint("SetTextI18n")
+
+    private var itemDeleted: Boolean = false
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mealImg = view.findViewById(R.id.iv_detailsMealImg)
         mealName = view.findViewById(R.id.tv_detailsMealName)
@@ -40,9 +47,15 @@ class MealDetailsFragment : Fragment(R.layout.fragment_meal_details) {
         mealPrice = view.findViewById(R.id.tv_detailsMealPrice)
         mealQuantity = view.findViewById(R.id.tv_detailsMealQuantity)
         mealTotalPrice = view.findViewById(R.id.tv_detailsMealTotalPrice)
-        addToCart = view.findViewById(R.id.btn_detailsAddToCart)
+        btnDetailsAddToCart = view.findViewById(R.id.btn_detailsAddToCart)
         incrementQuantity = view.findViewById(R.id.btn_detailsQuantityAdd)
         decrementQuantity = view.findViewById(R.id.btn_detailsQuantityRemove)
+
+        view.translationY = 700F
+        view.alpha = 0F
+
+        view.animate().translationY(0F).alpha(1F).setDuration(350).setStartDelay(100)
+            .start()
 
         mealPos = requireArguments().getInt("meal position")
         adapter = requireArguments().getParcelable("adapter")
@@ -79,13 +92,44 @@ class MealDetailsFragment : Fragment(R.layout.fragment_meal_details) {
             } else loginException()
         }
 
-        addToCart?.setOnClickListener {
+        btnDetailsAddToCart?.setOnClickListener {
             if (CurrentUser.isLoggedIn()) {
+                product?.id?.let { it1 -> deleteProduct(it1) }
 
+                if (itemDeleted) {
+                    val intent = Intent(activity, MainActivity::class.java)
+                    startActivity(intent)
+                }
             } else
                 loginException()
 
         }
+    }
+    //TODO i think no work deformed json
+    private fun deleteProduct(ID: Long) {
+        val call = adminApi.deleteProduct("Bearer " + CurrentUser.getToken(), ID)
+        call.enqueue(object : Callback<Boolean> {
+            override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
+                if (response.body() == true) {
+                    Toast.makeText(context, "Product Deleted Successfully", Toast.LENGTH_SHORT)
+                        .show()
+                    itemDeleted = true
+                } else
+                    Toast.makeText(
+                        context,
+                        "Product Wasn't Deleted Successfully",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+
+            }
+
+            override fun onFailure(call: Call<Boolean>, t: Throwable) {
+                Toast.makeText(context, "Error: Current User Unknown", Toast.LENGTH_SHORT)
+                    .show()
+                call.cancel()
+            }
+        })
     }
 
     private fun loginException() {
