@@ -5,6 +5,7 @@ import android.widget.Toast
 import com.example.shab3ni.accounts.data.Status
 import com.example.shab3ni.accounts.data.UserAuth
 import com.example.shab3ni.accounts.data.UserModel
+import com.example.shab3ni.accounts.ui.login.LoginTabFragment
 import com.example.shab3ni.user.homepage.editPage.api.adminApi
 import com.example.shab3ni.user.homepage.userProfile.data.CurrentUser
 import com.example.shab3ni.user.homepage.userProfile.data.User
@@ -68,9 +69,6 @@ fun login(
         UserAuth(email = email, password = password)
     )
     try {
-        if (call0.execute().isSuccessful) {
-
-        }
         call0.enqueue(object : Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 val token: String? = response.body()
@@ -78,14 +76,7 @@ fun login(
                 CurrentUser.setToken(token)
 
                 if (token != null) {
-                    getUserDetails(CurrentUser.getToken())
-                    Toast.makeText(
-                        context,
-                        "Welcome ${CurrentUser.getFirstName()}",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
-
+                    getUserDetails(token)
                 } else
                     Toast.makeText(context, "You are not Welcome", Toast.LENGTH_SHORT)
                         .show()
@@ -103,10 +94,6 @@ fun login(
 }
 
 fun getUserDetails(Token: String) {
-
-    if (Token == null)
-        return
-
     val call1 = adminApi.getUserDetails("Bearer $Token")
     call1.enqueue(object : Callback<User> {
         override fun onResponse(call: Call<User>, response: Response<User>) {

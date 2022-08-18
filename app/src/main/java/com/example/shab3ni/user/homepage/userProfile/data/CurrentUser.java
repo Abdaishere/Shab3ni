@@ -26,12 +26,12 @@ public class CurrentUser extends AppCompatActivity {
     }
 
     public static boolean isLoggedIn() {
-        try {
-            AccountsControllerKt.getUserDetails(Token);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return false;
-        }
+//        try {
+//            AccountsControllerKt.getUserDetails(Token);
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//            return false;
+//        }
         return Token != null;
     }
 

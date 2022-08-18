@@ -92,22 +92,23 @@ class MealDetailsFragment : Fragment(R.layout.fragment_meal_details) {
             } else loginException()
         }
 
+
         btnDetailsAddToCart?.setOnClickListener {
             if (CurrentUser.isLoggedIn()) {
-                product?.id?.let { it1 -> deleteProduct(it1) }
+                deleteProduct(product?.id)
 
-                if (itemDeleted) {
-                    val intent = Intent(activity, MainActivity::class.java)
-                    startActivity(intent)
-                }
+                val intent = Intent(activity, MainActivity::class.java)
+                startActivity(intent)
+
             } else
                 loginException()
 
         }
     }
-    //TODO i think no work deformed json
-    private fun deleteProduct(ID: Long) {
-        val call = adminApi.deleteProduct("Bearer " + CurrentUser.getToken(), ID)
+
+    private fun deleteProduct(ID: Long?) {
+        print(ID)
+        val call = adminApi.deleteProduct("Bearer " + CurrentUser.getToken(), Id = ID)
         call.enqueue(object : Callback<Boolean> {
             override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
                 if (response.body() == true) {

@@ -1,5 +1,6 @@
 package com.example.shab3ni.user.homepage.menu.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -8,10 +9,12 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import androidx.viewpager.widget.ViewPager
 import com.example.shab3ni.R
+import com.example.shab3ni.accounts.ui.login.LoginActivity
 import com.example.shab3ni.user.homepage.editPage.ui.EditPageFragment
 import com.example.shab3ni.user.homepage.menu.api.productsApi
 import com.example.shab3ni.user.homepage.menu.category.categoryTabLayoutAdapter
 import com.example.shab3ni.user.homepage.menu.data.CategoryModel
+import com.example.shab3ni.user.homepage.userProfile.data.CurrentUser
 import com.google.android.material.tabs.TabLayout
 import retrofit2.Call
 import retrofit2.Callback
@@ -33,9 +36,16 @@ class MenuFragment : Fragment(R.layout.fragment_meal) {
 
         addMeal = view.findViewById(R.id.btn_addMeal)
         addMeal.setOnClickListener {
-            parentFragmentManager.commit {
-                setReorderingAllowed(true)
-                replace<EditPageFragment>(R.id.homepage_fragment_container)
+
+            if (CurrentUser.isLoggedIn()) {
+                childFragmentManager.commit {
+                    setReorderingAllowed(true)
+                    replace<EditPageFragment>(R.id.homepage_fragment_container)
+                }
+
+            } else {
+                val intent = Intent(activity, LoginActivity::class.java)
+                startActivity(intent)
             }
         }
 

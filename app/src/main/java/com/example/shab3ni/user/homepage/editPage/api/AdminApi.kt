@@ -25,8 +25,11 @@ interface AdminApi {
         @Body categoryAdd: CategoryAdd
     ): Call<Category>
 
-    @DELETE("deleteproduct/")
-    fun deleteProduct(@Header("Authorization") Token: String, @Path("productId") ID: Long): Call<Boolean>
+    @DELETE("deleteproduct/{productId}")
+    fun deleteProduct(
+        @Header("Authorization") Token: String,
+        @Path("productId") Id: Long?
+    ): Call<Boolean>
 
     @GET("getuserdetails")
     fun getUserDetails(@Header("Authorization") Token: String): Call<User>
