@@ -13,10 +13,10 @@ interface ProductsApi {
     @GET("products/all")
     fun productsAll(): Call<ArrayList<Product>>
 
-    @GET("getproductbyid/")
+    @GET("getproductbyid/{productId}")
     fun getProductById(@Path("productId") ID: Long?): Call<Product>
 
-    @GET("getcategorybyid/")
+    @GET("getcategorybyid/{categoryId}")
     fun getCategoryById(@Path("categoryId") ID: Long?): Call<CategoryModel>
 
     @GET("categories/all")
