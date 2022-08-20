@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.example.shab3ni.user.homepage.ui.HomepageFragment
-import com.example.shab3ni.user.homepage.userProfile.data.CurrentUser
 
 
 class MainActivity : AppCompatActivity() {

@@ -13,13 +13,13 @@ import com.google.android.material.tabs.TabLayout.TabLayoutOnPageChangeListener
 
 class LoginActivity : AppCompatActivity() {
 
-    lateinit var tabLayout: TabLayout
+    private lateinit var tabLayout: TabLayout
+    private lateinit var imageView: ImageView
     lateinit var viewPager: ViewPager
-    lateinit var imageView: ImageView
     lateinit var textView: TextView
 
     private lateinit var fb: FloatingActionButton
-    private val Duration = 600L
+    private val duration = 600L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,12 +60,12 @@ class LoginActivity : AppCompatActivity() {
         fb.translationY = 300F
         fb.alpha = 0F
 
-        fb.animate().translationY(0F).alpha(1F).setDuration(Duration).setStartDelay(300).start()
+        fb.animate().translationY(0F).alpha(1F).setDuration(duration).setStartDelay(300).start()
 
         tabLayout.translationY = 300F
         tabLayout.alpha = 0F
 
-        tabLayout.animate().translationY(0F).alpha(1F).setDuration(Duration).setStartDelay(100)
+        tabLayout.animate().translationY(0F).alpha(1F).setDuration(duration).setStartDelay(100)
             .start()
 
         imageView.scaleX = 1.3F
@@ -79,7 +79,7 @@ class LoginActivity : AppCompatActivity() {
         textView.translationY = 300F
         textView.alpha = 0F
 
-        textView.animate().translationY(0F).alpha(1F).setDuration(Duration).setStartDelay(150)
+        textView.animate().translationY(0F).alpha(1F).setDuration(duration).setStartDelay(150)
             .start()
 
     }

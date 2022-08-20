@@ -11,7 +11,7 @@ import com.example.shab3ni.accounts.ui.register.SignupTabFragment;
 
 public class LoginAdapter extends FragmentPagerAdapter {
     private final Context context;
-    int totalTabs;
+    final int totalTabs;
 
     public LoginAdapter(FragmentManager fm, Context context, int totalTabs) {
         super(fm);
@@ -22,14 +22,10 @@ public class LoginAdapter extends FragmentPagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        switch (position) {
-            case 0:
-                return new LoginTabFragment();
-            case 1:
-                return new SignupTabFragment();
-            default:
-                return null;
+        if (position == 0) {
+            return new LoginTabFragment();
         }
+        return new SignupTabFragment();
     }
 
     @Override
