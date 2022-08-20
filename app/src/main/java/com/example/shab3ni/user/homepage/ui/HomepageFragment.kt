@@ -47,14 +47,7 @@ class HomepageFragment : Fragment(R.layout.fragment_homepage) {
                 btnShoppingCartClicked()
                 openEditPageFragment()
 
-            } else {
-                Toast.makeText(context, "Login in to Continue", Toast.LENGTH_SHORT)
-                    .show()
-                val intent = Intent(activity, LoginActivity::class.java)
-                startActivity(intent)
-
-            }
-
+            } else loginException()
         }
     }
 
