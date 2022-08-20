@@ -2,8 +2,6 @@ package com.example.shab3ni.user.homepage.userProfile.data;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.shab3ni.accounts.api.AccountsControllerKt;
-
 public class CurrentUser extends AppCompatActivity {
 
     private static User currentUser;
@@ -26,12 +24,6 @@ public class CurrentUser extends AppCompatActivity {
     }
 
     public static boolean isLoggedIn() {
-//        try {
-//            AccountsControllerKt.getUserDetails(Token);
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//            return false;
-//        }
         return Token != null;
     }
 

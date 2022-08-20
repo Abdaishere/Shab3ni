@@ -27,11 +27,13 @@ class MenuFragment : Fragment(R.layout.fragment_meal) {
     private lateinit var tabLayout: TabLayout
     private lateinit var adapter: categoryTabLayoutAdapter
     private lateinit var addMeal: com.google.android.material.floatingactionbutton.FloatingActionButton
+    private lateinit var tabLayoutView: View
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         tabLayout = view.findViewById(R.id.tab_layout2)
+        tabLayoutView = view.findViewById(R.id.tab_layout3)
         viewPager = view.findViewById(R.id.view_pager)
 
         addMeal = view.findViewById(R.id.btn_addMeal)
@@ -60,6 +62,12 @@ class MenuFragment : Fragment(R.layout.fragment_meal) {
         tabLayout.animate().translationY(0F).alpha(1F).setDuration(500L).setStartDelay(400)
             .start()
 
+        tabLayoutView.translationY = -300F
+        tabLayoutView.alpha = 0F
+
+        tabLayoutView.animate().translationY(0F).alpha(1F).setDuration(500L).setStartDelay(400)
+            .start()
+
         addMeal.translationY = 300F
         addMeal.alpha = 0F
 
@@ -82,6 +90,7 @@ class MenuFragment : Fragment(R.layout.fragment_meal) {
                         .show()
 
                 response.body()?.forEach {
+                    println(it.name)
                     tabLayout.addTab(tabLayout.newTab().setText(it.name))
                 }
 
@@ -93,7 +102,7 @@ class MenuFragment : Fragment(R.layout.fragment_meal) {
                         response.body()
                     )
 
-                tabLayout.tabGravity = TabLayout.GRAVITY_START
+                tabLayout.tabGravity = TabLayout.GRAVITY_FILL
 
                 viewPager.adapter = adapter
 
@@ -113,7 +122,7 @@ class MenuFragment : Fragment(R.layout.fragment_meal) {
             }
 
             override fun onFailure(call: Call<ArrayList<CategoryModel>>, t: Throwable) {
-                Toast.makeText(context, "Error: Please try again later", Toast.LENGTH_SHORT)
+                Toast.makeText(context, "Menu not Loaded Correctly", Toast.LENGTH_SHORT)
                     .show()
                 call.cancel()
             }

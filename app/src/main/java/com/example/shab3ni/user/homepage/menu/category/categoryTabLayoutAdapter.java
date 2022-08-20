@@ -13,9 +13,9 @@ import java.util.ArrayList;
 
 public class categoryTabLayoutAdapter extends FragmentStatePagerAdapter {
     private final Context context;
-    int totalTabs;
+    final int totalTabs;
 
-    public ArrayList<CategoryModel> allCategory;
+    public final ArrayList<CategoryModel> allCategory;
 
     public categoryTabLayoutAdapter(FragmentManager fm, Context context, int totalTabs, ArrayList<CategoryModel> allCategory) {
         super(fm);
