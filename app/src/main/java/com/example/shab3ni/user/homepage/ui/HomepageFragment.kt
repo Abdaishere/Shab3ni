@@ -39,7 +39,12 @@ class HomepageFragment : Fragment(R.layout.fragment_homepage) {
             if (CurrentUser.isLoggedIn()) {
                 btnUserProfileClicked()
                 openUserProfileFragment()
-            } else loginException()
+            } else {
+
+                val intent = Intent(activity, LoginActivity::class.java)
+                startActivity(intent)
+
+            }
         }
 
         btnShoppingCart?.setOnClickListener {
@@ -57,7 +62,7 @@ class HomepageFragment : Fragment(R.layout.fragment_homepage) {
     }
 
     private fun animation() {
-        val duration = 550L
+        val duration = 750L
 
         view?.translationY = 300F
         view?.alpha = 0F

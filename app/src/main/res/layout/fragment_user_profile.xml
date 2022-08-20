@@ -161,7 +161,7 @@
 
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/password_change"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:autofillHints="password"
@@ -180,7 +180,7 @@
                 app:layout_constraintWidth_percent="0.8" />
 
             <EditText
-                android:id="@+id/password_conform"
+                android:id="@+id/password_change_conform"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:autofillHints="password"
@@ -194,12 +194,12 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/password"
+                app:layout_constraintTop_toBottomOf="@+id/password_change"
                 app:layout_constraintVertical_bias="0.1"
                 app:layout_constraintWidth_percent="0.8" />
 
             <Button
-                android:id="@+id/btn_changpass"
+                android:id="@+id/btn_changPass"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -210,7 +210,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/password_conform"
+                app:layout_constraintTop_toBottomOf="@id/password_change_conform"
                 app:layout_constraintVertical_bias="0.2"
                 app:layout_constraintWidth_percent="0.8" />
 

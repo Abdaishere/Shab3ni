@@ -33,9 +33,9 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
         tvFirstName = view.findViewById(R.id.tv_firstName)
         tvLastName = view.findViewById(R.id.tv_lastName)
         tvEmail = view.findViewById(R.id.tv_email)
-        changePassword = view.findViewById(R.id.btn_changpass)
-        pass = view.findViewById(R.id.password)
-        confPass = view.findViewById(R.id.password_conform)
+        changePassword = view.findViewById(R.id.btn_changPass)
+        pass = view.findViewById(R.id.password_change)
+        confPass = view.findViewById(R.id.password_change_conform)
 
         cvEmail = view.findViewById(R.id.cv_email)
         cvFirstName = view.findViewById(R.id.cv_firstName)
@@ -43,7 +43,11 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
 
         changePassword.setOnClickListener {
             if (!changePassOpen) {
+
+                pass.setText("")
+                confPass.setText("")
                 changePassOpen = true
+
                 pass.animate().translationX(0f).alpha(1f).setDuration(500)
                     .setStartDelay(800).start()
 
@@ -54,11 +58,12 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
                     .setStartDelay(200)
                     .start()
             } else {
-
-                if (pass.text.equals(confPass.text) && pass.text.isNotEmpty())
+                if ((pass.text.toString() == confPass.text.toString()) && pass.text.toString()
+                        .isNotEmpty()
+                )
                     changePassword()
                 else
-                    Toast.makeText(context, "Error: Please try again", Toast.LENGTH_SHORT)
+                    Toast.makeText(context, "Incorrect Input", Toast.LENGTH_SHORT)
                         .show()
             }
         }
@@ -101,7 +106,7 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
 
     }
 
-    // TODO fix it lol
+    // TODO fix backend lol
     private fun changePassword() {
         val context = this.context
         val call: Call<String> = accountsApi.changePassword(
@@ -113,8 +118,10 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
         )
         call.enqueue(object : Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {
+
                 Toast.makeText(context, "${response.body()}", Toast.LENGTH_SHORT)
                     .show()
+
                 // get back
                 pass.animate().translationX(800f).alpha(0f).setDuration(500)
                     .setStartDelay(200).start()
@@ -127,8 +134,6 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
                     .start()
 
                 changePassOpen = false
-                pass.setText("")
-                confPass.setText("")
             }
 
             override fun onFailure(call: Call<String>, t: Throwable) {
