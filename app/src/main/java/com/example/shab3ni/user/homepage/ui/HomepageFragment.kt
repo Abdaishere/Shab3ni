@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
@@ -38,20 +39,17 @@ class HomepageFragment : Fragment(R.layout.fragment_homepage) {
             if (CurrentUser.isLoggedIn()) {
                 btnUserProfileClicked()
                 openUserProfileFragment()
-            } else {
-                val intent = Intent(activity, LoginActivity::class.java)
-                startActivity(intent)
-
-            }
+            } else loginException()
         }
 
-        //On progress
         btnShoppingCart?.setOnClickListener {
             if (CurrentUser.isLoggedIn()) {
                 btnShoppingCartClicked()
                 openEditPageFragment()
 
             } else {
+                Toast.makeText(context, "Login in to Continue", Toast.LENGTH_SHORT)
+                    .show()
                 val intent = Intent(activity, LoginActivity::class.java)
                 startActivity(intent)
 
@@ -134,5 +132,15 @@ class HomepageFragment : Fragment(R.layout.fragment_homepage) {
             setReorderingAllowed(true)
             replace<EditPageFragment>(R.id.homepage_fragment_container)
         }
+    }
+
+    private fun loginException() {
+        Toast.makeText(
+            this.context, "Please login to continue",
+            Toast.LENGTH_SHORT
+        ).show()
+        val intent = Intent(activity, LoginActivity::class.java)
+        startActivity(intent)
+
     }
 }

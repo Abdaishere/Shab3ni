@@ -45,10 +45,7 @@ class MenuFragment : Fragment(R.layout.fragment_meal) {
                     replace<EditPageFragment>(R.id.homepage_fragment_container)
                 }
 
-            } else {
-                val intent = Intent(activity, LoginActivity::class.java)
-                startActivity(intent)
-            }
+            } else loginException()
         }
 
         getAllCategories()
@@ -127,5 +124,15 @@ class MenuFragment : Fragment(R.layout.fragment_meal) {
                 call.cancel()
             }
         })
+    }
+
+    private fun loginException() {
+        Toast.makeText(
+            this.context, "Please login to continue",
+            Toast.LENGTH_SHORT
+        ).show()
+        val intent = Intent(activity, LoginActivity::class.java)
+        startActivity(intent)
+
     }
 }
