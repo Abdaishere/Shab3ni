@@ -108,6 +108,7 @@ class MenuFragment : Fragment(R.layout.fragment_meal) {
                 tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                     override fun onTabSelected(tab: TabLayout.Tab) {
                         viewPager.currentItem = tab.position
+                        tab.select()
                     }
 
                     override fun onTabUnselected(tab: TabLayout.Tab) {

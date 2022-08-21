@@ -1,5 +1,6 @@
 package com.example.shab3ni.user.homepage.menu.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -40,6 +41,7 @@ class MealDetailsFragment : Fragment(R.layout.fragment_meal_details) {
 
     private var itemDeleted: Boolean = false
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mealImg = view.findViewById(R.id.iv_detailsMealImg)
         mealName = view.findViewById(R.id.tv_detailsMealName)

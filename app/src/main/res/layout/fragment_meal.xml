@@ -36,6 +36,7 @@
         android:background="@color/transparent"
         android:overScrollMode="never"
         app:tabMode="scrollable"
+        app:tabGravity="center"
         app:tabTextColor="@color/white"
         app:tabIndicatorColor="@color/white"
         app:tabPadding="3dp"

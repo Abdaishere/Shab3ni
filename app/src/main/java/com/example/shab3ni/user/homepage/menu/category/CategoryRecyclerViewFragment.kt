@@ -1,10 +1,11 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.shab3ni.user.homepage.menu.category
 
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
@@ -44,10 +45,6 @@ class CategoryRecyclerViewFragment(private val categoryModel: CategoryModel) :
     }
 
     private fun getProducts() {
-        if (categoryModel.products.isEmpty()) {
-            Toast.makeText(this.context, "${categoryModel.name} is Empty", Toast.LENGTH_SHORT)
-                .show()
-        }
         adapter?.products = categoryModel.products
     }
 

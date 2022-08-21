@@ -5,11 +5,10 @@
     <color name="orange_a5b">#f07a5b</color>
     <color name="orange_second">#fcd8ca</color>
     <color name="orange_402">#ff5402</color>
-    <color name="black">#270C04</color>
+    <color name="black">#040316</color>
+    <color name="black2">#1b1a21</color>
     <color name="white">#fbfbfb</color>
-    <color name="orange_white">#ffd39d</color>
     <color name="transparent">#00000000</color>
     <color name="orange">#fb4303</color>
-    <color name="pink">#fcd8ca</color>
     <color name="gray">#9B9B9B</color>
 </resources>
